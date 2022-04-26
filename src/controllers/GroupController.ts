@@ -45,7 +45,7 @@ const show = async (request: Request, response: Response) => {
           custom_url: details.groupURL,
           name: details.groupName,
           tag: groupProfile.tag,
-          avatar: {
+          avatar_url: {
             small: details.avatarIcon,
             medium: details.avatarMedium,
             full: details.avatarFull

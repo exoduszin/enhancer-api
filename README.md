@@ -42,7 +42,7 @@
   "custom_url": string,
   "name": string,
   "tag": string,
-  "avatar": {
+  "avatar_url": {
     "small": string,
     "medium": string,
     "full": string
