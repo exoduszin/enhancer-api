@@ -68,7 +68,8 @@ const show = async (request: Request, response: Response) => {
             community_ban: !userProfile.private && !userProfile.level
           },
           last_ban_days: userProfile.last_ban_days,
-          member_since: profile.memberSince || null
+          member_since: profile.memberSince || null,
+          groups: profile.groups?.group.map((group) => group.groupID64) || null
         }
       })
 
