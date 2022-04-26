@@ -5,7 +5,7 @@ export const createApiRoute = (path: string, version = 1) =>
 
 export const parseSteamProfileURL = (value: string) => {
   const valueMatch = value.match(
-    /(?:https?:\/\/)?steamcommunity\.com\/((?:profiles|id)\/[a-zA-Z0-9]+)/
+    /(?:https?:\/\/)?steamcommunity\.com\/((?:profiles|id)\/[a-zA-Z0-9_-]+)/
   )
   const valueParsed = Array.isArray(valueMatch) ? valueMatch[1] : value
 
