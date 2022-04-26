@@ -2,7 +2,7 @@
 
 - ?user=
 
-```json
+```ts
 {
   "steam_3id": string,
   "steam_id32": string,
@@ -35,7 +35,7 @@
 
 - ?group=
 
-```json
+```ts
 {
   "steam_3id": string,
   "steam_id64": string,
