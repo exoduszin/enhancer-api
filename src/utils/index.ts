@@ -31,16 +31,12 @@ export const parseSteamGroupURL = (value: string) => {
   )
   const valueParsed = Array.isArray(valueMatch) ? valueMatch[1] : value
 
-  if (
-    valueParsed.startsWith('103') ||
-    valueParsed.startsWith('[g:')
-  ) {
+  if (valueParsed.startsWith('103') || valueParsed.startsWith('[g:')) {
     const steamID = new SteamID(valueParsed)
 
     return `gid/${steamID.toString()}`
   } else {
-    return !valueParsed.startsWith('gid/') &&
-      !valueParsed.startsWith('groups/')
+    return !valueParsed.startsWith('gid/') && !valueParsed.startsWith('groups/')
       ? `groups/${valueParsed}`
       : valueParsed
   }
