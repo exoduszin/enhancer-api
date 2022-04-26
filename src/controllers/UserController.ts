@@ -16,10 +16,14 @@ const show = async (request: Request, response: Response) => {
       `${SteamHTTP.COMMUNITY}/${parseSteamProfileURL(user)}`
     ).then((body) => {
       const $ = load(body)
+      const lastBanDays = $('.profile_ban_status')
+        .text()
+        .match(/(\d+) day\(s\)/)
 
       return {
         private: !!$('.profile_private_info').text().trim(),
-        level: +$('.friendPlayerLevelNum').first().text() || null
+        level: +$('.friendPlayerLevelNum').first().text() || null,
+        last_ban_days: lastBanDays ? +lastBanDays[1] : null
       }
     })
     const userData = await Fetcher(
@@ -63,6 +67,7 @@ const show = async (request: Request, response: Response) => {
             limited: !!+profile.isLimitedAccount,
             community_ban: !userProfile.private && !userProfile.level
           },
+          last_ban_days: userProfile.last_ban_days,
           member_since: profile.memberSince || null
         }
       })
