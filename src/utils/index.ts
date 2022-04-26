@@ -24,3 +24,24 @@ export const parseSteamProfileURL = (value: string) => {
       : valueParsed
   }
 }
+
+export const parseSteamGroupURL = (value: string) => {
+  const valueMatch = value.match(
+    /(?:https?:\/\/)?steamcommunity\.com\/((?:gid|groups)\/[a-zA-Z0-9_-]+)/
+  )
+  const valueParsed = Array.isArray(valueMatch) ? valueMatch[1] : value
+
+  if (
+    valueParsed.startsWith('103') ||
+    valueParsed.startsWith('[g:')
+  ) {
+    const steamID = new SteamID(valueParsed)
+
+    return `gid/${steamID.toString()}`
+  } else {
+    return !valueParsed.startsWith('gid/') &&
+      !valueParsed.startsWith('groups/')
+      ? `groups/${valueParsed}`
+      : valueParsed
+  }
+}
