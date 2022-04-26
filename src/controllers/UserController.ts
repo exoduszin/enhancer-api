@@ -1,3 +1,4 @@
+import { load } from 'cheerio'
 import { Request, Response } from 'express'
 import SteamID from 'steamid'
 import XML2JS from 'xml2js'
@@ -11,6 +12,16 @@ const show = async (request: Request, response: Response) => {
   const { user } = request.query
 
   try {
+    const userProfile = await Fetcher(
+      `${SteamHTTP.COMMUNITY}/${parseSteamProfileURL(user)}`
+    ).then((body) => {
+      const $ = load(body)
+
+      return {
+        private: !!$('.profile_private_info').text().trim(),
+        level: +$('.friendPlayerLevelNum').first().text() || null
+      }
+    })
     const userData = await Fetcher(
       `${SteamHTTP.COMMUNITY}/${parseSteamProfileURL(user)}`,
       {
@@ -42,13 +53,15 @@ const show = async (request: Request, response: Response) => {
             medium: profile.avatarMedium,
             full: profile.avatarFull
           },
+          level: userProfile.level,
           location: profile.location || null,
           status: profile.stateMessage.replace(/<br\/>.*/, ''),
           privacy: EPrivacyState[profile.privacyState],
           limitations: {
             vac: !!+profile.vacBanned,
             trade_ban: profile.tradeBanState !== 'None',
-            limited: !!+profile.isLimitedAccount
+            limited: !!+profile.isLimitedAccount,
+            community_ban: !userProfile.private && !userProfile.level
           },
           member_since: profile.memberSince || null
         }
