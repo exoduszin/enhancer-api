@@ -36,8 +36,8 @@ const show = async (request: Request, response: Response) => {
       )
       .then(({ memberList }) => {
         const groupID = new SteamID(memberList.groupID64)
-
         const details = memberList.groupDetails
+        const members = memberList.members.steamID64
 
         return {
           steam_3id: groupID.getSteam3RenderedID(),
@@ -51,7 +51,7 @@ const show = async (request: Request, response: Response) => {
             full: details.avatarFull
           },
           member_count: +memberList.memberCount,
-          members: memberList.members.steamID64
+          members: !Array.isArray(members) ? [members] : members
         }
       })
 
