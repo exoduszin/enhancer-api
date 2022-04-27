@@ -1,7 +1,7 @@
 import SteamID from 'steamid'
 
-export const createApiRoute = (path: string, version = 1) =>
-  `/api/v${version}${!path.startsWith('/') ? '/' + path : path}`
+export const createApiRoute = (path: string) =>
+  `/api${!path.startsWith('/') ? '/' + path : path}`
 
 export const parseSteamProfileURL = (value: string) => {
   const valueMatch = value.match(

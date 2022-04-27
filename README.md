@@ -1,4 +1,4 @@
-# GET `/api/{version}/users`
+# GET `/api/users`
 
 - ?user=
 
@@ -31,7 +31,7 @@
 }
 ```
 
-# GET `/api/{version}/groups`
+# GET `/api/groups`
 
 - ?group=
 
