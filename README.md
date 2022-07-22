@@ -7,7 +7,7 @@
   "steam_3id": string,
   "steam_id32": string,
   "steam_id64": string,
-  "custom_url": string,
+  "custom_url": string | null,
   "name": string,
   "realname": string | null,
   "avatar_url": {
